@@ -14,7 +14,7 @@ app.use(
     origin: [
       "http://localhost:5173",
       "http://127.0.0.1:5173",
-      "https://clinic-fullstack-chi.vercel.app/",
+      "https://clinic-fullstack-chi.vercel.app",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
