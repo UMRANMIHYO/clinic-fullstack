@@ -10,7 +10,7 @@ const app = express();
 // ==========================================
 app.use(cors({
     // 👈 ضفنا الرابطين كمصفوفة عشان نقبل الحالتين
-    origin: ['http://localhost:5173', 'http://127.0.0.1:5173'], 
+    origin: ['http://localhost:5173', 'http://127.0.0.1:5173','https://clinic-fullstack-chi.vercel.app/'], 
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 }));
