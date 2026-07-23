@@ -12,7 +12,7 @@ const upload = require("../middleware/upload"); // 👈 السطر الجديد
 // ==========================================
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // مدة الحظر: 15 دقيقة
-  max: 5, // أقصى عدد محاولات مسموح بها لكل IP
+  max: 20, // أقصى عدد محاولات مسموح بها لكل IP
   message: {
     message:
       "تم تجاوز الحد المسموح لمحاولات تسجيل الدخول. الرجاء المحاولة بعد 15 دقيقة.",
@@ -369,8 +369,6 @@ router.post("/login", loginLimiter, async (req, res) => {
   }
 });
 
-
-
 // ==========================================
 // 10. مسارات الإشعارات (Notifications)
 // ==========================================
@@ -472,10 +470,3 @@ router.post("/contact", auth, async (req, res) => {
 });
 
 module.exports = router;
-
-
-
-
-
-
-
