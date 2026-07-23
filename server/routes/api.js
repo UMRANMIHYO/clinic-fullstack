@@ -369,33 +369,7 @@ router.post("/login", loginLimiter, async (req, res) => {
   }
 });
 
-// ⚠️ مسار مؤقت لإنشاء الآدمن الأول (يجب حذفه فوراً بعد الاستخدام!)
-router.post("/create-first-admin", async (req, res) => {
-  try {
-    // تأكد أن مودل الآدمن مستدعى في أعلى الملف، أو يمكنك تركه هنا:
-    // const Admin = require('../models/Admin');
 
-    // التحقق مما إذا كان هناك آدمن موجود بالفعل لتجنب التكرار
-    const existingAdmin = await Admin.findOne();
-    if (existingAdmin) {
-      return res.status(400).json({ message: "يوجد حساب آدمن بالفعل!" });
-    }
-
-    // إنشاء الحساب الافتراضي
-    const admin = new Admin({
-      email: "admin@admin.com",
-      password: "12345",
-      // بافتراض أنك قمت ببرمجة تشفير كلمة المرور (Hashing) داخل ملف المودل نفسه
-    });
-
-    await admin.save();
-    res
-      .status(201)
-      .json({ message: "تم إنشاء الآدمن بنجاح! يمكنك تسجيل الدخول الآن." });
-  } catch (error) {
-    res.status(500).json({ message: "حدث خطأ: " + error.message });
-  }
-});
 
 // ==========================================
 // 10. مسارات الإشعارات (Notifications)
@@ -498,3 +472,10 @@ router.post("/contact", auth, async (req, res) => {
 });
 
 module.exports = router;
+
+
+
+
+
+
+
