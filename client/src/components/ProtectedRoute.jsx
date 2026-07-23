@@ -2,10 +2,9 @@ import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
 const ProtectedRoute = () => {
-  // التحقق من وجود التوكن في ذاكرة المتصفح
-  const token = localStorage.getItem('adminToken');
+  // تم تعديل الاسم ليطابق الاسم المحفوظ عند تسجيل الدخول 👈
+  const token = localStorage.getItem('token');
   
-  // إذا كان موجوداً، اسمح بمروره للمسار المطلوب (Outlet)، وإذا لا، اطرده لصفحة الدخول
   return token ? <Outlet /> : <Navigate to="/login" />;
 };
 
