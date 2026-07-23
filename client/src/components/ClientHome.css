@@ -1,0 +1,752 @@
+/* =========================================
+   Yumuşak Kaydırma (Smooth Scroll) ve Navbar Boşluğu
+========================================= */
+html {
+  scroll-behavior: smooth; /* Sayfa içi geçişleri yumuşatır */
+  scroll-padding-top: 90px; /* Menünün başlıkların üzerini kapatmasını engeller */
+}
+
+/* =========================================
+   Varsayılan Renk Değişkenleri (Gündüz Modu)
+========================================= */
+.client-website {
+  --bg-color: #ffffff;             /* Ana sayfa arka planı */
+  --text-color: #111827;           /* Ana metin rengi (Siyah alternatifi) */
+  --text-muted: #4b5563;           /* Alt metin rengi */
+  --card-bg: #ffffff;              /* Kart arka planı */
+  --card-border: #f3f4f6;          /* Kart kenarlıkları */
+  --nav-bg: rgba(255, 255, 255, 0.85); /* Camsı navbar arka planı */
+  
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  direction: ltr; /* Soldan sağa düzen (Türkçe için uygun) */
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* =========================================
+   🔴 Karanlık Mod (Dark Mode) Sihri
+========================================= */
+.client-website.dark-mode {
+  --bg-color: #0f172a;             
+  --text-color: #f9fafb;           
+  --text-muted: #9ca3af;           
+  --card-bg: #1e293b;              
+  --card-border: #334155;          
+  --nav-bg: rgba(15, 23, 42, 0.85); 
+}
+
+/* =========================================
+   Üst Menü (Navbar) Cam Efekti
+========================================= */
+.client-nav {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 50px;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  border-radius: 200px;
+}
+
+.glass-nav {
+  background: var(--nav-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.client-logo {
+  height: 45px;
+  object-fit: contain;
+}
+
+.text-logo {
+  color: var(--primary-color); 
+  font-weight: 800;
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+
+.nav-links a {
+  text-decoration: none;
+}
+
+/* =========================================
+   Üst Menü Bağlantıları ve Animasyonlar
+========================================= */
+.nav-links a:not(.whatsapp-btn) {
+  position: relative;
+  color: var(--text-color);
+  font-weight: 600;
+  padding: 8px 16px; /* مسافة داخلية لصنع الخلفية الدائرية */
+  border-radius: 25px; /* حواف دائرية مثل الصورة */
+  transition: all 0.3s ease;
+}
+
+/* 🔴 شكل الرابط لما يكون نشط (Active) أو لما نمرر الماوس عليه */
+.nav-links a.active:not(.whatsapp-btn),
+.nav-links a:not(.whatsapp-btn):hover {
+  background-color: rgba(156, 163, 175, 0.25); /* أغمقنا الخلفية نسبة بسيطة لزيادة التباين والوضوح */
+  color: var(--text-color) !important; /* 🔴 التعديل هنا: يظل النص بلونه الأساسي المتناقض (غامق بالنهار وفاتح بالليل) */
+}
+
+/* الخط السفلي السحري */
+.nav-links a:not(.whatsapp-btn)::after {
+  content: '';
+  position: absolute;
+  bottom: 6px; 
+  left: 50%;
+  transform: translateX(-50%); 
+  width: 0;
+  height: 3px;
+  background-color: var(--secondary-color); /* 🔴 الخط كمان بيأخذ اللون المتناقض ليظل واضحاً ومقروءاً دائماً */
+  border-radius: 2px;
+  transition: width 0.3s ease-in-out;
+}
+
+/* اكتمال الخط عند التمرير أو للقسم النشط */
+.nav-links a.active:not(.whatsapp-btn)::after,
+.nav-links a:not(.whatsapp-btn):hover::after {
+  width: calc(100% - 32px); /* عرض الخط يكون على قد الكلمة فقط بدون الحواف */
+}
+
+/* Tıklama anında buton gibi hafifçe küçülme efekti */
+.nav-links a:not(.whatsapp-btn):active {
+  transform: scale(0.92);
+}
+/* =========================================
+   Karanlık Mod Değiştirme Butonu
+========================================= */
+.theme-toggle-btn {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.theme-toggle-btn:hover {
+  background-color: rgba(156, 163, 175, 0.15);
+}
+
+.theme-icon {
+  width: 22px;
+  height: 22px;
+}
+
+/* =========================================
+   WhatsApp Butonu (Temaya Uyumlu)
+========================================= */
+.whatsapp-btn {
+  background-color: var(--primary-color) !important; /* 🔴 يأخذ اللون الأساسي للموقع بدل الأخضر */
+  color: #ffffff !important;
+  padding: 8px 20px;
+  border-radius: 25px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* ظل محايد وناعم */
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.whatsapp-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.whatsapp-btn:hover {
+  background-color: var(--secondary-color) !important; /* 🔴 يتغير للون الثاني عند التمرير */
+  color: #ffffff !important; 
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+}
+/* =========================================
+   Ana Bölüm (Hero Section)
+========================================= */
+.hero-section {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  color: white;
+  padding: 0 20px;
+  transition: background 0.5s ease;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('https://www.transparenttextures.com/patterns/cubes.png');
+  opacity: 0.1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+}
+
+.hero-content h1 {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  font-weight: 800;
+  text-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.hero-content p {
+  font-size: 1.3rem;
+  margin-bottom: 35px;
+  opacity: 0.9;
+}
+
+.cta-btn {
+  display: inline-block;
+  background-color: white;
+  color: var(--secondary-color); 
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.cta-btn:hover {
+  background-color: var(--secondary-color);
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+}
+
+/* =========================================
+   Genel Bölümler ve Ortak Stiller
+========================================= */
+.client-section {
+  padding: 100px 50px;
+}
+
+.bg-light {
+  background-color: var(--card-border); 
+}
+
+.section-title {
+  font-size: 2.5rem;
+  color: var(--text-color);
+  margin-bottom: 50px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.modern-card {
+  background: var(--card-bg);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  transition: all 0.4s ease;
+  overflow: hidden;
+  border: 1px solid var(--card-border);
+}
+
+/* 🔴 التعديل هنا: رفع الكرت وتلوين الإطار باللون الأساسي */
+.modern-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  border-color: var(--secondary-color); /* تلوين حواف الكرت */
+}
+
+/* 🔴 نعومة في تغير لون النص */
+.modern-card h3 {
+  transition: color 0.3s ease;
+}
+
+/* 🔴 تلوين عنوان المنتج (مثلاً: قهوة لذيذة) عند التمرير على الكرت */
+.modern-card:hover h3 {
+  color: var(--secondary-color);
+}
+
+/* =========================================
+   Hakkımızda Bölümü (About)
+========================================= */
+.about-content {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.about-text {
+  flex: 1;
+}
+
+.text-box p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-muted);
+  margin-bottom: 15px;
+}
+
+.about-img-container {
+  flex: 1;
+}
+
+.about-img {
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+/* =========================================
+   Hizmetler Bölümü (Services)
+========================================= */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.service-card {
+  text-align: center;
+}
+
+.card-icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.service-card h3 {
+  color: var(--text-color);
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.service-card p {
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.service-price {
+  display: inline-block;
+  background-color: rgba(156, 163, 175, 0.15); /* خلفية رمادية هادئة بالوضع الطبيعي */
+  color: var(--text-color); /* لون النص يتبع المظهر ليكون واضح دائماً */
+  padding: 6px 18px;
+  border-radius: 20px;
+  font-weight: bold;
+  transition: all 0.3s ease; /* ضروري لنعومة الحركة والتوهج */
+}
+
+.modern-card:hover .service-price {
+  background-color: var(--primary-color); /* الخلفية تأخذ اللون الأساسي */
+  color: #ffffff !important; /* النص يصبح أبيض ناصع ليبرز */
+  box-shadow: 0 0 15px var(--primary-color); /* 🔴 تأثير التوهج الفخم بنفس اللون الأساسي */
+  transform: scale(1.08); /* يكبر حجم السعر بشكل خفيف جداً لجذب الانتباه */
+}
+
+/* =========================================
+   Projeler Bölümü (Projects)
+========================================= */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.img-wrapper {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+}
+
+.img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+/* =========================================
+   تأثيرات الصور (موحدة لكل الكروت الآن)
+========================================= */
+.modern-card:hover .img-wrapper img {
+  transform: scale(1.1);
+}
+
+.modern-card:hover .img-overlay {
+  opacity: 0.85; 
+}
+
+.img-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--primary-color); 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.client-project-card:hover .img-overlay {
+  opacity: 0.85; 
+}
+
+.img-overlay span {
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border: 2px solid white;
+  padding: 10px 20px;
+  border-radius: 30px;
+}
+
+.proj-info {
+  padding: 25px;
+}
+
+.proj-info h3 {
+  color: var(--text-color);
+  margin-bottom: 10px;
+  font-size: 1.4rem;
+}
+
+.proj-info p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* =========================================
+   Alt Bilgi (Footer)
+========================================= */
+.client-footer {
+  background-color: var(--secondary-color); /* 🔴 يأخذ اللون الثاني المخصص من لوحة التحكم */
+  color: #ffffff; /* نص أبيض ناصع ليبرز على اللون المخصص */
+  text-align: center;
+  padding: 30px 20px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1); /* ظل خفيف للأعلى لفصل الفوتر بنعومة */
+  transition: background-color 0.3s ease; 
+}
+/* =========================================
+   Hamburger Menu (أيقونة الموبايل)
+========================================= */
+.hamburger-btn {
+  display: none; /* مخفي في شاشات الكمبيوتر */
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1001; /* ليبقى فوق القائمة عند فتحها */
+}
+
+.hamburger-btn .bar {
+  width: 100%;
+  height: 3px;
+  background-color: var(--text-color);
+  border-radius: 3px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* 🔴 حركة تحول الخطوط إلى علامة X */
+.hamburger-btn.open .bar:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+  background-color: var(--primary-color);
+}
+
+.hamburger-btn.open .bar:nth-child(2) {
+  opacity: 0; /* إخفاء الخط الأوسط */
+}
+
+.hamburger-btn.open .bar:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+  background-color: var(--primary-color);
+}
+
+/* =========================================
+   شاشات الموبايل (Mobil Uyumluluk)
+========================================= */
+@media (max-width: 768px) {
+  .client-nav {
+    padding: 15px 20px;
+  }
+  
+  /* إظهار زر الهامبرغر */
+  .hamburger-btn {
+    display: flex;
+  }
+  
+  /* 🔴 تصميم القائمة الجانبية للموبايل */
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%; /* مخفية خارج الشاشة يميناً */
+    width: 75%;
+    max-width: 300px;
+    height: 100vh;
+    background-color: var(--nav-bg);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+    transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 1000;
+  }
+
+  /* الكلاس الذي سيتم إضافته بالجافاسكربت لإظهار القائمة */
+  .nav-links.mobile-open {
+    right: 0;
+  }
+
+  .nav-links a {
+    display: block !important;
+    font-size: 1.2rem;
+  }
+
+  /* تصغير الخطوط في الموبايل */
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+  .about-content {
+    flex-direction: column;
+  }
+}
+/* =========================================
+   İletişim Kartları (Contact Cards)
+========================================= */
+.contact-card {
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-color: var(--card-bg); /* لدعم الوضع الليلي */
+}
+
+.contact-icon-wrapper {
+  padding: 18px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* ارتداد ناعم (Bouncy) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 🔴 حركة الأيقونة عند التمرير على الكرت */
+.contact-card:hover .contact-icon-wrapper {
+  transform: scale(1.15) translateY(-5px); /* الأيقونة بتكبر وبتنط لفوق شوي */
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* توحيد ألوان النصوص لدعم الوضع الداكن */
+.contact-card h3 {
+  font-size: 1.2rem;
+  color: var(--text-color);
+  margin-bottom: 10px;
+  transition: color 0.3s ease;
+}
+
+.contact-card p, .contact-card a {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  text-decoration: none;
+  line-height: 1.6;
+  transition: color 0.3s ease;
+}
+
+/* تلوين النص عند التمرير */
+.contact-card:hover h3, 
+.contact-card:hover a {
+  color: var(--primary-color);
+}
+
+/* =========================================
+   Yukarı Çık Butonu (Scroll to Top)
+========================================= */
+.scroll-to-top-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px; /* مكان الزر أسفل اليمين */
+  background-color: var(--primary-color); /* يأخذ اللون الأساسي للموقع */
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* حركة ارتداد ناعمة */
+  
+  /* الإخفاء الافتراضي */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+}
+
+/* الكلاس الذي يضيفه الجافاسكربت لإظهار الزر */
+.scroll-to-top-btn.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* تأثير التمرير (Hover) */
+.scroll-to-top-btn:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+/* =========================================
+   Sosyal Medya İkonları (Social Media)
+========================================= */
+.social-link-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 15px;
+  border-radius: 50%; /* شكل دائري بالكامل */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  transition: all 0.4s ease;
+  text-decoration: none;
+}
+
+/* التأثير الموحد: ارتفاع للأعلى، تلوين الإطار، وظل أنيق */
+.social-link-card:hover {
+  transform: translateY(-8px) scale(1.1); /* ترتفع وتكبر شوي */
+  box-shadow: 0 15px 25px rgba(0,0,0,0.15);
+  border-color: var(--primary-color); /* تلوين الإطار باللون الأساسي للموقع */
+}
+
+/* =========================================
+   Scroll Reveal (حركات الظهور عند التمرير)
+========================================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(60px); /* يبدأ العنصر من الأسفل بمسافة 60 بيكسل */
+  visibility: hidden;
+  transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* حركة ارتداد ناعمة جداً */
+}
+
+/* الكلاس الذي سيتم إضافته برمجياً عند وصول الزائر للقسم */
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+}
+
+/* =========================================
+   Yükleme Ekranı (Preloader - شاشة التحميل)
+========================================= */
+.preloader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 5px solid rgba(156, 163, 175, 0.2); /* إطار رمادي شفاف */
+  border-radius: 50%;
+  border-top-color: var(--primary-color); /* 🔴 رأس الدائرة يأخذ اللون الأساسي للموقع */
+  animation: spin 1s cubic-bezier(0.55, 0.15, 0.45, 0.85) infinite;
+  margin-bottom: 25px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.preloader-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  animation: pulseText 1.5s infinite;
+  letter-spacing: 1px;
+}
+
+@keyframes pulseText {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+/* تخصيص أزرار السلايدر (Swiper) مع التوسيط المثالي */
+#projects .swiper-button-next,
+#projects .swiper-button-prev {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  width: 45px !important;
+  height: 45px !important;
+  border-radius: 50% !important;
+  color: #111827 !important; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  
+  /* أوامر التوسيط الإجبارية للزر */
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+/* تصفير هوامش الأيقونة نفسها وتوسيطها */
+#projects .swiper-button-next:after,
+#projects .swiper-button-prev:after {
+  font-size: 20px !important;
+  font-weight: bold !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+}
+
+/* تخصيص لون النقاط السفلية */
+#projects .swiper-pagination-bullet-active {
+  background-color: var(--primary-color) !important;
+}

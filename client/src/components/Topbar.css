@@ -1,0 +1,63 @@
+/* الحاوية الرئيسية للشريط العلوي */
+.topbar {
+  height: 70px;
+  background-color: white;
+  display: flex;
+  justify-content: flex-end; /* لدفع العناصر إلى اليمين */
+  align-items: center;
+  padding: 0 30px;
+  border-radius:200px; /* تدوير بسيط للزاوية السفلية اليسرى حسب التصميم */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+}
+
+/* حاوية العناصر (الجرس والصورة) */
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 25px; /* المسافة بين الجرس والصورة */
+}
+
+/* تنسيق الإشعارات */
+.notification {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.bell-icon {
+  font-size: 1.4rem;
+  color: #4b5563;
+  transition: color 0.2s;
+}
+
+.bell-icon:hover {
+  color: #111827;
+}
+
+/* النقطة الحمراء على الجرس */
+.badge {
+  position: absolute;
+  top: -2px;
+  right: 0px;
+  width: 8px;
+  height: 8px;
+  background-color: #ef4444;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+/* تنسيق الصورة الشخصية */
+.profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid #e5e7eb;
+  transition: border-color 0.2s;
+}
+
+.profile-img:hover {
+  border-color: #3b82f6;
+}

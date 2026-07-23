@@ -1,0 +1,9 @@
+.services-container { display: flex; flex-direction: column; gap: 30px; }
+.add-service-card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+.service-form { display: flex; flex-direction: column; gap: 15px; margin-top: 15px; }
+.services-list { display: flex; flex-direction: column; gap: 15px; }
+.service-row-card { background: white; padding: 20px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border-left: 4px solid var(--active-color); }
+.service-content h4 { margin: 0 0 5px 0; color: #1f2937; }
+.service-content p { margin: 0; color: #6b7280; font-size: 0.9rem; }
+.service-actions { display: flex; align-items: center; gap: 20px; }
+.price-tag { background: #f3f4f6; padding: 6px 12px; border-radius: 20px; color: #374151; font-weight: 500; display: flex; align-items: center; gap: 5px; }

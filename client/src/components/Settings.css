@@ -1,0 +1,117 @@
+.settings-container {
+  width: 100%;
+  max-width: 100%;
+}
+
+.settings-card {
+  background-color: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  width: 100%; 
+  max-width: 1400px;
+  transition: all 0.3s ease; 
+}
+
+.settings-card h3 {
+  margin: 0;
+  color: #1f2937;
+  font-size: 1.4rem;
+}
+
+.subtitle {
+  color: #9ca3af;
+  font-size: 0.9rem;
+  margin-top: 5px;
+  margin-bottom: 25px;
+}
+
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-group label {
+  font-size: 0.9rem;
+  color: #4b5563;
+  font-weight: 500;
+}
+
+.input-group input, 
+.input-group textarea {
+  padding: 12px 15px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+  font-family: inherit;
+}
+
+.input-group input:focus, 
+.input-group textarea:focus {
+  border-color: var(--active-color, #3b82f6);
+}
+
+/* كلاس زر الحفظ الموحد لجميع الصفحات */
+.save-btn {
+  width: 100%; /* العرض الكامل */
+  flex: 1; /* في حال وجود زرين جانب بعض (مثل الحفظ والإلغاء) يتقاسمان المساحة */
+  padding: 14px;
+  margin-top: 15px; 
+  background-color: #3b82f6;
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(59, 130, 246, 0.2);
+  transition: background 0.3s ease, transform 0.1s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.save-btn:hover {
+  background-color: #2563eb;
+}
+
+.save-btn:active {
+  transform: scale(0.98); /* تأثير ضغطة زر واقعية واحترافية */
+}
+
+/* كلاس مخصص لزر "إلغاء التعديل" الرصاصي لتوحيد شكله أيضاً */
+.cancel-btn {
+  width: 100%;
+  flex: 1;
+  padding: 14px;
+  margin-top: 15px;
+  background-color: #6b7280;
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(107, 114, 128, 0.2);
+  transition: background 0.3s ease, transform 0.1s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cancel-btn:hover {
+  background-color: #4b5563;
+}
+
+.cancel-btn:active {
+  transform: scale(0.98);
+}

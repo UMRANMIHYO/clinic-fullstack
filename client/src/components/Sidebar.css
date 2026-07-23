@@ -1,0 +1,79 @@
+/* الحاوية الرئيسية للشريط الجانبي */
+.sidebar {
+  background-color: #111827; /* لون كحلي غامق */
+  color: white;
+  height: 100vh;
+  transition: all 0.3s ease; /* حركة ناعمة عند الفتح والإغلاق */
+  display: flex;
+  flex-direction: column;
+}
+
+/* حالة الفتح والإغلاق للعرض */
+.sidebar.open {
+  width: 250px;
+}
+.sidebar.closed {
+  width: 70px;
+}
+
+/* الجزء العلوي (اللوجو وزر التكبير) */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  height: 80px;
+}
+
+.logo {
+  font-size: 1.2rem;
+  font-weight: bold;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.toggle-btn {
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-btn:hover {
+  color: #3b82f6; /* لون أزرق عند التأشير */
+}
+
+/* عناصر القائمة */
+.menu-items {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  color: #9ca3af; /* لون رمادي فاتح للنص غير النشط */
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.menu-item:hover, .menu-item.active {
+  background-color: #1f2937;
+  color: white;
+  border-left: 4px solid #3b82f6; /* خط أزرق جانبي عند التحديد */
+}
+
+.icon {
+  font-size: 1.3rem;
+  min-width: 30px;
+}
+
+.link-text {
+  margin-left: 15px;
+  font-size: 1rem;
+  white-space: nowrap; /* لمنع النص من النزول لسطر جديد عند تصغير القائمة */
+}
