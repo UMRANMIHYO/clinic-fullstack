@@ -13,4 +13,4 @@ const pageSchema = new mongoose.Schema({
     }]
 }, { timestamps: true });
 
-module.exports = mongoose.model('Page', pageSchema);
+module.exports = mongoose.model('page', pageSchema);
