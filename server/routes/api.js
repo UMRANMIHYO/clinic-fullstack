@@ -25,7 +25,7 @@ const loginLimiter = rateLimit({
 // ==========================================
 const Admin = require('../models/Admin');
 const SiteConfig = require('../models/SiteConfig');
-const Page = require('../models/Page');
+const page = require('../models/Page');
 const Project = require('../models/Project');
 const About = require('../models/About');
 const Service = require('../models/Service');
